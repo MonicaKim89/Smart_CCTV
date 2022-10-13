@@ -62,7 +62,23 @@ def extract_keypoints(results):
     rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
     return np.concatenate([pose, face, lh, rh])
 
+####
+folder_path = "C:\\Users\\yukir\\Documents\\Monicas_workspace\\smart cctv\\1.배회\\"
 
+file_list = []
+
+for i in os.listdir(folder_path):
+    if i[0]!='.':
+        file_list.append(i)
+
+round_folder_path = os.listdir("C:\\Users\\yukir\\Documents\\Monicas_workspace\\smart cctv\\rounding\\")
+
+round_file_list = []
+
+for i in round_folder_path:
+    folder_path = "C:\\Users\\yukir\\Documents\\Monicas_workspace\\smart cctv\\rounding\\"
+    new = folder_path+str(i)
+    round_file_list.append(folder_path+i)
 
 ####
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
@@ -96,18 +112,19 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
                     # frame_num +=1
                     npy_path = round_file_list[num]+'\\{}'.format(str(frame_num))
                     np.save(npy_path, result_test)
+                    # print(len(os.listdir(round_file_list[num])))
                     if len(os.listdir(round_file_list[num]))>600:
                         break
                 except:
                     pass
-                cv2.imshow('frame', image)
-                if cv2.waitKey(30) == 27:
-                    break
+                # cv2.imshow('frame', image)
+                # if cv2.waitKey(30) == 27:
+                #     break
         except:
             pass
     vid_num +=1
     lefted = len(file_list)- vid_num
     print('Lefted', lefted)
-cv2.destroyAllWindows()
-cv2.waitKey()
+# cv2.destroyAllWindows()
+# cv2.waitKey()
         
