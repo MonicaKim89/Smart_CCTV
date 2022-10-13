@@ -112,19 +112,19 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
                     # frame_num +=1
                     npy_path = round_file_list[num]+'\\{}'.format(str(frame_num))
                     np.save(npy_path, result_test)
-                    # print(len(os.listdir(round_file_list[num])))
                     if len(os.listdir(round_file_list[num]))>600:
                         break
                 except:
                     pass
-                # cv2.imshow('frame', image)
-                # if cv2.waitKey(30) == 27:
-                #     break
+                cv2.imshow('frame', image)
+                if cv2.waitKey(30) == 27:
+                    break
         except:
             pass
     vid_num +=1
     lefted = len(file_list)- vid_num
     print('Lefted', lefted)
-# cv2.destroyAllWindows()
-# cv2.waitKey()
+cv2.destroyAllWindows()
+cv2.waitKey()
+        
         
